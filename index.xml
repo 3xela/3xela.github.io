@@ -7,15 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Welcome &lt;3</title>
+      <title>welcome &lt;3</title>
       <link>http://example.org/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://example.org/</guid>
       <description>Hello! Welcome to my site. I will be showcasing the things that I’ve done.
-School Projects Here are some projects I’ve worked on during my time at school:
+##Projects Here are some projects I’ve worked on during my time at school:
  Project 1: A description of what I did. Project 2: Something cool I learned while doing this project.  Interests I&amp;rsquo;m passionate about:
- Programming languages (especially OCaml and Python) Web development (using Hugo and GitHub Pages) AI and diffusion models Music and sound analysis  Contact Feel free to reach out via email@example.</description>
+ Programming languages (especially OCaml and Python) AI and diffusion models Music and sound analysis  Contact Feel free to reach out via alex.</description>
     </item>
     
   </channel>
