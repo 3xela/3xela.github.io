@@ -47,6 +47,31 @@ body {
   --muted: #6c6f7d;
   --subtle: #f2f2f2;
 }
+[data-theme='dark'] {
+  --foreground: #ffffff;
+  --background: #171717;
+  --primary: #7ed321;
+  --muted: #9ca3af;
+  --subtle: #2d2d2d;
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-toggle {
+  padding: 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  transition: opacity 0.15s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.7;
+}
 button {
   cursor: pointer;
   background: none;
