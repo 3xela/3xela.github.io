@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blog — neagoe.xyz</title>
+    <meta name="description" content="blog posts" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+  </head>
+  <body>
+    <header class="wrap" style="pointer-events: auto">
+      <div class="py-10 header-content" style="pointer-events: auto">
+        <nav class="nav">
+          <a class="link" href="/" style="pointer-events: auto"
+            ><span style="pointer-events: auto">neagoe</span
+            ><span class="text-muted">.</span><span>xyz</span></a
+          >
+          <a class="link nav-link active" href="/blog.html">blog</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <span class="theme-toggle-text">🌙</span>
+        </button>
+      </div>
+    </header>
+    <main class="wrap" style="pointer-events: auto">
+      <div id="blog-content"></div>
+      <footer class="wrap" style="pointer-events: auto">
+        <div class="py-10" style="pointer-events: auto">
+          <a style="pointer-events: auto"
+            ><span class="text-muted">Last updated</span
+            ><span class="text-muted">: </span
+            ><span class="text-muted">01 Feb 2025</span></a
+          >
+        </div>
+      </footer>
+    </main>
+    <script>
+      const blogContent = document.getElementById('blog-content');
+
+      async function loadPostList() {
+        const res = await fetch('posts.json');
+        const posts = await res.json();
+        let html = '<div class="main-container">';
+        html += '<div id="intro"><p class="font-medium text-muted">Posts</p>';
+        html += '<div class="body-text post-list">';
+        posts.forEach(post => {
+          html += `<a class="post-item link" href="#${post.slug}">`;
+          html += `<span>${post.title}</span>`;
+          html += `<span class="text-muted text-xxxs">${post.date}</span>`;
+          html += `</a>`;
+        });
+        html += '</div></div></div>';
+        blogContent.innerHTML = html;
+      }
+
+      async function loadPost(slug) {
+        const res = await fetch(`posts/${slug}.md`);
+        if (!res.ok) {
+          blogContent.innerHTML = '<p>Post not found.</p>';
+          return;
+        }
+        const md = await res.text();
+        // Protect math blocks from marked's parsing
+        const mathBlocks = [];
+        const escaped = md
+          .replace(/\$\$([\s\S]*?)\$\$/g, (_, tex) => {
+            mathBlocks.push({ tex, display: true });
+            return `%%MATH_${mathBlocks.length - 1}%%`;
+          })
+          .replace(/\$([^\$\n]+?)\$/g, (_, tex) => {
+            mathBlocks.push({ tex, display: false });
+            return `%%MATH_${mathBlocks.length - 1}%%`;
+          });
+        let rendered = marked.parse(escaped);
+        // Render math with KaTeX
+        rendered = rendered.replace(/%%MATH_(\d+)%%/g, (_, i) => {
+          const { tex, display } = mathBlocks[i];
+          try {
+            return katex.renderToString(tex.trim(), { displayMode: display, throwOnError: false });
+          } catch { return tex; }
+        });
+        let html = '<div class="main-container">';
+        html += '<a class="link back-link text-muted" href="blog.html">&larr; back to posts</a>';
+        html += `<article class="prose">${rendered}</article>`;
+        html += '</div>';
+        blogContent.innerHTML = html;
+      }
+
+      function route() {
+        const slug = location.hash.slice(1);
+        if (slug) {
+          loadPost(slug);
+        } else {
+          loadPostList();
+        }
+      }
+
+      window.addEventListener('hashchange', route);
+      route();
+    </script>
+  </body>
+</html>
