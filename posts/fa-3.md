@@ -24,4 +24,4 @@ $$
 Where $x$ is a sequence of $N$ vectors in $\mathbb{R}^d$, and $W_Q,W_K,W_V$ are our weight matrices.
 The issue that flash attention solves is the quadratic scale-up; $QK^T$ is an $N\times N$ matrix; it grows quaratically with sequence length. There are two levels of GPU memory that are relevant for this discussion, High Bandwidth Memory (HBM) and Static RAM (SRAM) or Shared memory. HBM is large but slow to access, SRAM is small but easy to access. We never want to materialize $QK^T$ inside of HBM since it would be too slow to operate on.
 #### Flash Attention 1
-Flash Attention 1 works by starting with our Q,K,V matrices in HBM, and tiling them into smaller matrices. These tiles are loaded into SRAM, and a partial attention is computed for each. The softmax is accumulated and we loop over all the tiles, u
+Flash Attention 1 works by starting with our Q,K,V matrices in HBM, and tiling them into smaller matrices. These tiles are loaded into SRAM, and a partial attention is computed for each. The softmax is accumulated and we loop over all the tiles, until we finish.
