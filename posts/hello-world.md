@@ -1,6 +1,6 @@
 # Hello, World!
 
-This is the first post on my blog. Consider this a test of the markdown rendering engine.
+This is the test post on my blog. Consider this a test of the markdown rendering engine.
 
 ## Why a blog?
 
