@@ -4,11 +4,5 @@
     "title": "Hello, World!",
     "date": "2025-02-11",
     "description": "A first post to kick things off."
-  },
-  {
-    "slug": "fa-3",
-    "title": "Flash Attention 3 Backward Passes in FP8",
-    "date": "2025-02-11",
-    "description": "how to do backward passes in fp8 for flash attention 3"
   }
 ]
