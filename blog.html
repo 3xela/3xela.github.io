@@ -48,7 +48,7 @@
       const blogContent = document.getElementById('blog-content');
 
       async function loadPostList() {
-        const res = await fetch('posts.json');
+        const res = await fetch('posts.json', { cache: 'no-store' });
         const posts = await res.json();
         let html = '<div class="main-container">';
         html += '<div id="intro"><p class="font-medium text-muted">Posts</p>';
@@ -64,7 +64,7 @@
       }
 
       async function loadPost(slug) {
-        const res = await fetch(`posts/${slug}.md`);
+        const res = await fetch(`posts/${slug}/index.md`, { cache: 'no-store' });
         if (!res.ok) {
           blogContent.innerHTML = '<p>Post not found.</p>';
           return;
