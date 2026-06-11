@@ -221,6 +221,7 @@ body::-webkit-scrollbar {
 .prose {
   line-height: 1.75;
   word-wrap: break-word;
+  min-width: 0;
 }
 .prose h1 {
   font-size: 1.25rem;
@@ -288,6 +289,13 @@ body::-webkit-scrollbar {
   border: none;
   border-top: 1px solid var(--subtle);
   margin: 1.5rem 0;
+}
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 4px;
 }
 .prose strong {
   font-weight: 600;

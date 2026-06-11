@@ -1,5 +1,11 @@
 [
   {
+    "slug": "ideogram-4",
+    "title": "Image Blocked by Safety Filter",
+    "date": "2026-06-07",
+    "description": "Built a LoRA fine-tuning pipeline for Ideogram 4, then went down a rabbit hole on the image it returns when your prompt isn't good enough."
+  },
+  {
     "slug": "hello-world",
     "title": "Hello, World!",
     "date": "2025-02-11",
