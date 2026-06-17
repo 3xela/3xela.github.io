@@ -7,13 +7,13 @@
     <meta name="description" content="sudo reboot" />
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
-    <header class="wrap" style="pointer-events: auto">
-      <div class="py-10 header-content" style="pointer-events: auto">
+    <header class="wrap">
+      <div class="py-10 header-content">
         <nav class="nav">
-          <a class="link" href="/" style="pointer-events: auto"
-            ><span style="pointer-events: auto">neagoe</span
+          <a class="link" href="/"><span>neagoe</span
             ><span class="text-muted">.</span><span>xyz</span></a
           >
           <a class="link nav-link" href="/blog.html">blog</a>
@@ -23,103 +23,115 @@
         </button>
       </div>
     </header>
-    <main class="wrap" style="pointer-events: auto">
-      <div class="main-container">
-        <div id="intro">
-          <p class="font-medium text-muted">Introduction</p>
-          <div class="body-text">
-            <p>Welcome to my website!.</p>
-            <p>
-              I like ML and the mathematics that underly it. Interested in Diffusion Models, 
-              <!-- -->
-              <span class="text-muted" style="pointer-events: auto"
-                >(RF)</span
-              >
-              <!-- -->
-              , kernels, and making things faster.
-            </p>
-            <p>
-              This site is for me to document and distribute things I work on / find cool.
-              <!-- -->
-              <span class="text-muted"
-                >(no <span class="italic">cap</span>)</span
-              ><!-- -->.
-            </p>
-          </div>
-        </div>
-        <div id="intro">
-          <p class="font-medium text-muted">Present</p>
-          <div class="body-text">
-            <p>
-              I'm currently working as a research scientist, developing thermal & probabilistic computing algorithms.
-            </p>
-            <ul class="list" style="pointer-events: auto">
-              <li class="list-item" style="pointer-events: auto">
-                <span class="leading-none flex text-muted h-1">﹂</span
-                  ><a
-                    target="_blank"
-                    class="link primary inline-flex"
-                    href="https://www.extropic.ai/"
-                    style="pointer-events: auto"
-                    >Extropic</a
-                  ><span class="text-muted text-xxxs">Dec 2025 - Present</span>
-                 </li>
-              <li class="list-item" style="pointer-events: auto">
-                <span class="leading-none flex text-muted h-1">﹂</span
-                ><a
-                  target="_blank"
-                  class="link primary inline-flex"
-                  href="https://www.w.ai/"
-                  style="pointer-events: auto"
-                  >WOMBO.AI</a
-                ><span class="text-muted text-xxxs">Jun 2024 - Jun 2025</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="intro">
-          <p class="font-medium text-muted">Connect</p>
-          <div class="body-text">
-            <p>Find me on the internet.</p>
-            <ul class="list" style="pointer-events: auto">
-              <li class="list-item" style="pointer-events: auto">
-                <span class="leading-none flex text-muted h-1">﹂</span>
-                <a
-                  class="link inline-flex"
-                  href="mailto:a@neagoe.xyz"
-                  style="pointer-events: auto"
-                  ><span style="pointer-events: auto">a</span>
-                  <span class="text-muted" style="pointer-events: auto"
-                    >(@)</span
-                  >
-                  <span class="text-muted">neagoe.xyz</span></a
-                >
-              </li>
-              <li class="list-item" style="pointer-events: auto">
-                <span class="leading-none flex text-muted h-1">﹂</span>
-                <a
-                  class="link inline-flex primary"
-                  href="https://github.com/3xela"
-                  style="pointer-events: auto"
-                >
-                  <span class="text-muted" style="pointer-events: auto"
-                    >https://github.com/</span
-                  ><span>3xela</span></a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <footer class="wrap" style="pointer-events: auto">
-        <div class="py-10" style="pointer-events: auto">
-          <a style="pointer-events: auto"
-            ><span class="text-muted">Last updated</span
+    <main class="wrap">
+      <div id="home-content"></div>
+      <footer class="wrap">
+        <div class="py-10">
+          <a><span class="text-muted">Last updated</span
             ><span class="text-muted">: </span
             ><span class="text-muted">01 Feb 2025</span></a
           >
         </div>
       </footer>
     </main>
+    <script>
+      const homeContent = document.getElementById('home-content');
+
+      // Wrap any (parenthetical) in muted styling, matching the original markup.
+      function muteParens(s) {
+        return s.replace(/\(([^)]*)\)/g, '<span class="text-muted">($1)</span>');
+      }
+
+      function renderInline(s) {
+        return muteParens(marked.parseInline(s.trim()));
+      }
+
+      function renderListItem(text) {
+        // Split a trailing " — date" off the item, if present.
+        let main = text;
+        let date = '';
+        const idx = text.indexOf(' — ');
+        if (idx !== -1) {
+          main = text.slice(0, idx).trim();
+          date = text.slice(idx + 3).trim();
+        }
+        const link = main.match(/^\[([^\]]*)\]\(([^)]+)\)$/);
+        let body;
+        if (link) {
+          const label = muteParens(link[1]);
+          const url = link[2];
+          const target = /^https?:/.test(url) ? ' target="_blank" rel="noopener"' : '';
+          body = `<a class="link primary inline-flex"${target} href="${url}"><span>${label}</span></a>`;
+        } else {
+          body = renderInline(main);
+        }
+        let html = '<li class="list-item">';
+        html += '<span class="text-muted">﹂</span>';
+        html += body;
+        if (date) html += `<span class="text-muted text-xxxs">${date}</span>`;
+        html += '</li>';
+        return html;
+      }
+
+      function renderBody(lines) {
+        let out = '';
+        let para = [];
+        let items = [];
+        const flushPara = () => {
+          if (para.length) {
+            out += `<p>${renderInline(para.join(' '))}</p>`;
+            para = [];
+          }
+        };
+        const flushList = () => {
+          if (items.length) {
+            out += '<ul class="list">';
+            items.forEach(it => { out += renderListItem(it); });
+            out += '</ul>';
+            items = [];
+          }
+        };
+        lines.forEach(raw => {
+          const line = raw.trim();
+          if (!line) { flushPara(); return; }
+          const li = line.match(/^[-*]\s+(.*)/);
+          if (li) { flushPara(); items.push(li[1]); }
+          else { flushList(); para.push(line); }
+        });
+        flushPara();
+        flushList();
+        return out;
+      }
+
+      function renderHome(md) {
+        const sections = [];
+        let cur = null;
+        md.split('\n').forEach(line => {
+          const h = line.match(/^##\s+(.*)/);
+          if (h) {
+            cur = { title: h[1].trim(), body: [] };
+            sections.push(cur);
+          } else if (cur) {
+            cur.body.push(line);
+          }
+        });
+        let html = '<div class="main-container">';
+        sections.forEach(sec => {
+          html += '<div class="intro">';
+          html += `<p class="font-medium text-muted">${sec.title}</p>`;
+          html += `<div class="body-text">${renderBody(sec.body)}</div>`;
+          html += '</div>';
+        });
+        html += '</div>';
+        return html;
+      }
+
+      async function loadHome() {
+        const res = await fetch('home.md', { cache: 'no-store' });
+        homeContent.innerHTML = renderHome(await res.text());
+      }
+
+      loadHome();
+    </script>
   </body>
 </html>

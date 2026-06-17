@@ -156,7 +156,7 @@ body.blog .wrap {
   width: 100%;
   display: flex;
 }
-#intro {
+.intro {
   row-gap: 0.5rem;
   flex-direction: column;
   display: flex;
@@ -179,7 +179,6 @@ body.blog .wrap {
   display: flex;
 }
 .list-item {
-  pointer-events: auto;
   column-gap: 0.5rem;
   align-items: center;
   display: flex;
