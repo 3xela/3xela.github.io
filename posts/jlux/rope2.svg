@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 380" role="img" font-family="system-ui, -apple-system, sans-serif">
+<title>Rotary Position Embedding (RoPE) across txt, image-width and image-height axes</title>
+<desc>A cursor raster-scans a grid of image patches. As it moves across columns the image-width rotor turns; as it drops to the next row the image-height rotor advances. The txt rotor stays at the identity, since txt tokens sit at position zero. A dashed reference vector marks zero rotation, illustrating that attention depends only on relative position.</desc>
+<style>
+  .t   { font-size: 14px; font-weight: 400; fill: #2c2c2a; }
+  .ts  { font-size: 12px; font-weight: 400; fill: #5f5e5a; }
+  .th  { font-size: 14px; font-weight: 500; fill: #2c2c2a; }
+  .ti  { font-size: 16px; font-weight: 600; fill: #2c2c2a; }
+  .fm  { font-size: 14px; font-weight: 400; fill: #2c2c2a; }
+  .arr   { stroke: #2c2c2a; stroke-width: 1.6; fill: none; }
+  .grid  { stroke: #B4B2A9; stroke-width: 1; fill: none; }
+  .gridbg{ fill: #F2F1EA; stroke: #B4B2A9; stroke-width: 1; }
+  .ring  { fill: none; stroke: #B4B2A9; stroke-width: 1; opacity: 0.6; }
+  .dot   { fill: #5f5e5a; }
+  .ref   { stroke: #888780; stroke-width: 1.4; stroke-dasharray: 3 3; fill: none; opacity: 0.7; }
+  .vec   { stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .cursor{ fill: #993C1D; opacity: 0.85; }
+  .grey-stroke { stroke: #5f5e5a; }
+  .blue-stroke { stroke: #185FA5; }
+  .blue-text   { fill: #0C447C; }
+  .teal-stroke { stroke: #0F6E56; }
+  .teal-text   { fill: #085041; }
+  .coral-text  { fill: #712B13; }
+  @media (prefers-color-scheme: dark) {
+    .t   { fill: #d3d1c7; } .ts { fill: #888780; } .th { fill: #d3d1c7; }
+    .ti  { fill: #d3d1c7; } .fm { fill: #d3d1c7; }
+    .arr { stroke: #d3d1c7; }
+    .grid  { stroke: #5f5e5a; }
+    .gridbg{ fill: #2a2a27; stroke: #5f5e5a; }
+    .ring  { stroke: #5f5e5a; }
+    .dot   { fill: #b8b6ad; }
+    .ref   { stroke: #888780; }
+    .cursor{ fill: #F5C4B3; }
+    .grey-stroke { stroke: #b8b6ad; }
+    .blue-stroke { stroke: #B5D4F4; }
+    .blue-text   { fill: #B5D4F4; }
+    .teal-stroke { stroke: #9FE1CB; }
+    .teal-text   { fill: #9FE1CB; }
+    .coral-text  { fill: #F5C4B3; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animate, animateTransform, animateMotion { display: none; }
+  }
+</style>
+<defs>
+  <marker id="rope-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- Title -->
+<text class="ti" x="340" y="30" text-anchor="middle">Rotary Position Embedding</text>
+<text class="ts" x="340" y="52" text-anchor="middle">positions split into three axes — txt &#8853; width &#8853; height — then rotate: I &#8853; R(&#952;&#183;p_w) &#8853; R(&#952;&#183;p_h)</text>
+
+<!-- ===== Patch grid (left) ===== -->
+<text class="ts" x="150" y="88" text-anchor="middle">image patches</text>
+<rect class="gridbg" x="70" y="95" width="160" height="120" rx="4"/>
+<line class="grid" x1="110" y1="95" x2="110" y2="215"/>
+<line class="grid" x1="150" y1="95" x2="150" y2="215"/>
+<line class="grid" x1="190" y1="95" x2="190" y2="215"/>
+<line class="grid" x1="70"  y1="135" x2="230" y2="135"/>
+<line class="grid" x1="70"  y1="175" x2="230" y2="175"/>
+
+<!-- scanning cursor -->
+<rect class="cursor" width="36" height="36" rx="3" x="72" y="97">
+  <animate attributeName="x" calcMode="discrete" dur="7.2s" repeatCount="indefinite"
+    keyTimes="0;0.0833;0.1667;0.25;0.3333;0.4167;0.5;0.5833;0.6667;0.75;0.8333;0.9167;1"
+    values="72;112;152;192;72;112;152;192;72;112;152;192;72"/>
+  <animate attributeName="y" calcMode="discrete" dur="7.2s" repeatCount="indefinite"
+    keyTimes="0;0.0833;0.1667;0.25;0.3333;0.4167;0.5;0.5833;0.6667;0.75;0.8333;0.9167;1"
+    values="97;97;97;97;137;137;137;137;177;177;177;177;97"/>
+</rect>
+
+<!-- axis labels -->
+<text class="ts" x="150" y="235" text-anchor="middle">width &#8594;</text>
+<text class="ts" x="48" y="155" text-anchor="middle" transform="rotate(-90 48 155)">height &#8595;</text>
+
+<!-- link to rotors -->
+<line class="arr" x1="240" y1="155" x2="300" y2="155" marker-end="url(#rope-arrow)"/>
+<text class="ts" x="270" y="148" text-anchor="middle">rotate</text>
+
+<!-- ===== Rotors (right) ===== -->
+<!-- txt rotor: identity -->
+<text class="th" x="360" y="92" text-anchor="middle">txt</text>
+<circle class="ring" cx="360" cy="150" r="40"/>
+<line class="ref" x1="360" y1="150" x2="392" y2="150"/>
+<g>
+  <line class="vec grey-stroke" x1="360" y1="150" x2="392" y2="150" marker-end="url(#rope-arrow)"/>
+</g>
+<circle class="dot" cx="360" cy="150" r="2.6"/>
+<text class="ts" x="360" y="208" text-anchor="middle">p = 0  &#8594;  I</text>
+
+<!-- img width rotor -->
+<text class="th blue-text" x="480" y="92" text-anchor="middle">img width</text>
+<circle class="ring" cx="480" cy="150" r="40"/>
+<line class="ref" x1="480" y1="150" x2="512" y2="150"/>
+<g>
+  <line class="vec blue-stroke" x1="480" y1="150" x2="512" y2="150" marker-end="url(#rope-arrow)"/>
+  <animateTransform attributeName="transform" type="rotate" dur="7.2s" repeatCount="indefinite"
+    keyTimes="0;0.0833;0.1667;0.25;0.3333;0.4167;0.5;0.5833;0.6667;0.75;0.8333;0.9167;1"
+    values="0 480 150;30 480 150;60 480 150;90 480 150;0 480 150;30 480 150;60 480 150;90 480 150;0 480 150;30 480 150;60 480 150;90 480 150;0 480 150"/>
+</g>
+<circle class="dot" cx="480" cy="150" r="2.6"/>
+<text class="ts" x="480" y="208" text-anchor="middle">rotate by &#952;&#183;p_w</text>
+
+<!-- img height rotor -->
+<text class="th teal-text" x="600" y="92" text-anchor="middle">img height</text>
+<circle class="ring" cx="600" cy="150" r="40"/>
+<line class="ref" x1="600" y1="150" x2="632" y2="150"/>
+<g>
+  <line class="vec teal-stroke" x1="600" y1="150" x2="632" y2="150" marker-end="url(#rope-arrow)"/>
+  <animateTransform attributeName="transform" type="rotate" dur="7.2s" repeatCount="indefinite"
+    keyTimes="0;0.0833;0.1667;0.25;0.3333;0.4167;0.5;0.5833;0.6667;0.75;0.8333;0.9167;1"
+    values="0 600 150;0 600 150;0 600 150;0 600 150;45 600 150;45 600 150;45 600 150;45 600 150;90 600 150;90 600 150;90 600 150;90 600 150;0 600 150"/>
+</g>
+<circle class="dot" cx="600" cy="150" r="2.6"/>
+<text class="ts" x="600" y="208" text-anchor="middle">rotate by &#952;&#183;p_h</text>
+
+<!-- ===== Caption + property ===== -->
+<line class="grid" x1="70" y1="262" x2="610" y2="262"/>
+<text class="ts" x="340" y="288" text-anchor="middle">txt tokens sit at position 0, so their rotation is the identity. each image patch is rotated by its (row, col) index.</text>
+<text class="fm" x="340" y="318" text-anchor="middle">&#10216;R&#8345; q, R&#8344; k&#10217; = &#10216;q, R&#8345;&#8331;&#8344; k&#10217;</text>
+<text class="ts" x="340" y="338" text-anchor="middle">the attention score depends only on the relative offset n &#8722; m</text>
+
+<!-- legend -->
+<line class="ref" x1="180" y1="360" x2="210" y2="360"/>
+<text class="ts" x="216" y="360" dominant-baseline="central">position 0 (reference)</text>
+<line class="vec blue-stroke" x1="360" y1="360" x2="390" y2="360"/>
+<text class="ts" x="396" y="360" dominant-baseline="central">rotated by position</text>
+</svg>

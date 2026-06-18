@@ -333,3 +333,17 @@ body.blog .wrap {
   font-weight: 600;
   background: var(--subtle);
 }
+/* Footnote references (citations) */
+.prose .footnotes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--subtle);
+  font-size: 0.8125rem;
+}
+.prose .footnotes ol {
+  color: var(--muted);
+}
+.prose sup a[data-footnote-ref],
+.prose a[data-footnote-backref] {
+  text-decoration: none;
+}
