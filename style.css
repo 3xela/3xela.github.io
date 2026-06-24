@@ -99,7 +99,7 @@ body::-webkit-scrollbar {
   padding-right: 1.25rem;
 }
 body.blog .wrap {
-  max-width: 760px;
+  max-width: 880px;
 }
 .py-10 {
   padding-top: 2.5rem;
@@ -223,6 +223,7 @@ body.blog .wrap {
 
 /* Rendered markdown (prose) */
 .prose {
+  font-size: 0.875rem;
   line-height: 1.75;
   word-wrap: break-word;
   min-width: 0;
@@ -314,6 +315,42 @@ body.blog .wrap {
   height: auto;
   margin: 1rem auto;
   border-radius: 4px;
+}
+.prose .repo-badge {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1.5rem auto;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.prose .repo-badge:hover {
+  opacity: 0.85;
+}
+.prose .repo-badge svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.prose .sample-grid {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 38rem;
+  margin: 0.5rem auto 2rem;
+}
+.prose .sample-grid img {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
 }
 .prose table {
   width: 100%;
