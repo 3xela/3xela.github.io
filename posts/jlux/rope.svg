@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 55 680 260" role="img" font-family="system-ui, -apple-system, sans-serif">
+<title>RoPE across three axes: txt as a line, image-width and image-height as rotating stacks of patches</title>
+<desc>Three axes fan out from a shared origin. The txt axis is a plain line of position markers (the identity, no rotation). The image-width and image-height axes are skewers of square patches that rotate about the axis; patches further along rotate faster, so each stack winds into a helix — the rotation angle grows with position.</desc>
+<style>
+  .ts  { font-size: 12px; font-weight: 400; fill: #5f5e5a; }
+  .th  { font-size: 14px; font-weight: 500; fill: #2c2c2a; }
+  .ti  { font-size: 16px; font-weight: 600; fill: #2c2c2a; }
+  .fm  { font-size: 14px; font-weight: 400; fill: #2c2c2a; }
+  .axisline { stroke: #5f5e5a; stroke-width: 1.6; fill: none; }
+  .dot   { fill: #5f5e5a; }
+  .origin{ fill: #2c2c2a; }
+  .sq-w  { fill: #E6F1FB; stroke: #185FA5; stroke-width: 1.4; }
+  .cor-w { fill: #185FA5; }
+  .tx-w  { fill: #0C447C; }
+  .sq-h  { fill: #E1F5EE; stroke: #0F6E56; stroke-width: 1.4; }
+  .cor-h { fill: #0F6E56; }
+  .tx-h  { fill: #085041; }
+  @media (prefers-color-scheme: dark) {
+    .ts { fill: #888780; } .th { fill: #d3d1c7; } .ti { fill: #d3d1c7; } .fm { fill: #d3d1c7; }
+    .axisline { stroke: #b8b6ad; }
+    .dot { fill: #b8b6ad; } .origin { fill: #d3d1c7; }
+    .sq-w  { fill: #0C447C; stroke: #B5D4F4; }
+    .cor-w { fill: #B5D4F4; } .tx-w { fill: #B5D4F4; }
+    .sq-h  { fill: #085041; stroke: #9FE1CB; }
+    .cor-h { fill: #9FE1CB; } .tx-h { fill: #9FE1CB; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animate, animateTransform, animateMotion { display: none; }
+  }
+</style>
+<defs>
+  <marker id="rope-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ===== axes ===== -->
+<line class="axisline" x1="340" y1="300" x2="340" y2="80"  marker-end="url(#rope-head)"/>
+<line class="axisline" x1="340" y1="300" x2="214" y2="121" marker-end="url(#rope-head)"/>
+<line class="axisline" x1="340" y1="300" x2="466" y2="121" marker-end="url(#rope-head)"/>
+<circle class="origin" cx="340" cy="300" r="3.2"/>
+
+<!-- axis labels -->
+<text class="th" x="340" y="72" text-anchor="middle">txt</text>
+<text class="th tx-w" x="206" y="111" text-anchor="end">img width</text>
+<text class="th tx-h" x="474" y="111" text-anchor="start">img height</text>
+
+<!-- ===== txt axis: a plain line of positions ===== -->
+<circle class="dot" cx="340" cy="257"   r="4"/>
+<circle class="dot" cx="340" cy="222.6" r="4"/>
+<circle class="dot" cx="340" cy="188.2" r="4"/>
+<circle class="dot" cx="340" cy="153.8" r="4"/>
+<circle class="dot" cx="340" cy="119.4" r="4"/>
+
+<!-- ===== img width axis: rotating stack of patches (angle grows with position) ===== -->
+<g><animateTransform attributeName="transform" type="rotate" from="0 315.3 264.8" to="360 315.3 264.8" dur="18s" repeatCount="indefinite"/>
+  <rect class="sq-w" x="301.3" y="250.8" width="28" height="28" rx="3"/><circle class="cor-w" cx="301.3" cy="250.8" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 295.6 236.6" to="360 295.6 236.6" dur="9s" repeatCount="indefinite"/>
+  <rect class="sq-w" x="281.6" y="222.6" width="28" height="28" rx="3"/><circle class="cor-w" cx="281.6" cy="222.6" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 275.8 208.4" to="360 275.8 208.4" dur="6s" repeatCount="indefinite"/>
+  <rect class="sq-w" x="261.8" y="194.4" width="28" height="28" rx="3"/><circle class="cor-w" cx="261.8" cy="194.4" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 256.1 180.3" to="360 256.1 180.3" dur="4.5s" repeatCount="indefinite"/>
+  <rect class="sq-w" x="242.1" y="166.3" width="28" height="28" rx="3"/><circle class="cor-w" cx="242.1" cy="166.3" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 236.3 152.1" to="360 236.3 152.1" dur="3.6s" repeatCount="indefinite"/>
+  <rect class="sq-w" x="222.3" y="138.1" width="28" height="28" rx="3"/><circle class="cor-w" cx="222.3" cy="138.1" r="2.6"/></g>
+
+<!-- ===== img height axis: rotating stack of patches ===== -->
+<g><animateTransform attributeName="transform" type="rotate" from="0 364.7 264.8" to="360 364.7 264.8" dur="18s" repeatCount="indefinite"/>
+  <rect class="sq-h" x="350.7" y="250.8" width="28" height="28" rx="3"/><circle class="cor-h" cx="350.7" cy="250.8" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 384.4 236.6" to="360 384.4 236.6" dur="9s" repeatCount="indefinite"/>
+  <rect class="sq-h" x="370.4" y="222.6" width="28" height="28" rx="3"/><circle class="cor-h" cx="370.4" cy="222.6" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 404.2 208.4" to="360 404.2 208.4" dur="6s" repeatCount="indefinite"/>
+  <rect class="sq-h" x="390.2" y="194.4" width="28" height="28" rx="3"/><circle class="cor-h" cx="390.2" cy="194.4" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 423.9 180.3" to="360 423.9 180.3" dur="4.5s" repeatCount="indefinite"/>
+  <rect class="sq-h" x="409.9" y="166.3" width="28" height="28" rx="3"/><circle class="cor-h" cx="409.9" cy="166.3" r="2.6"/></g>
+<g><animateTransform attributeName="transform" type="rotate" from="0 443.7 152.1" to="360 443.7 152.1" dur="3.6s" repeatCount="indefinite"/>
+  <rect class="sq-h" x="429.7" y="138.1" width="28" height="28" rx="3"/><circle class="cor-h" cx="429.7" cy="138.1" r="2.6"/></g>
+</svg>

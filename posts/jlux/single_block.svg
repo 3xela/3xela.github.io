@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 920" role="img" font-family="system-ui, -apple-system, sans-serif">
+<title>FluxSingleStreamBlock forward pass</title>
+<desc>Joint token stream gets AdaLN modulation, a single fused 7D Linear that yields both QKV and the MLP hidden, attention and MLP run in parallel, then concatenate and project back through Linear2.</desc>
+<style>
+  .t   { font-size: 14px; font-weight: 400; fill: #2c2c2a; }
+  .ts  { font-size: 12px; font-weight: 400; fill: #5f5e5a; }
+  .th  { font-size: 14px; font-weight: 500; fill: #2c2c2a; }
+  .arr      { stroke: #2c2c2a; stroke-width: 1.6; fill: none; }
+  .arr-thin { stroke: #5f5e5a; stroke-width: 1;   fill: none; }
+  .leader   { stroke: #888780; stroke-width: 0.8; stroke-dasharray: 4 3; fill: none; }
+  .amber-fill  { fill: #FAEEDA; stroke: #BA7517; stroke-width: 0.5; }
+  .amber-text  { fill: #633806; }
+  .amber-sub   { fill: #854F0B; }
+  .purple-fill { fill: #EEEDFE; stroke: #534AB7; stroke-width: 0.5; }
+  .purple-text { fill: #3C3489; }
+  .purple-sub  { fill: #534AB7; }
+  .blue-fill   { fill: #E6F1FB; stroke: #185FA5; stroke-width: 0.5; }
+  .blue-text   { fill: #0C447C; }
+  .blue-sub    { fill: #185FA5; }
+  .teal-fill   { fill: #E1F5EE; stroke: #0F6E56; stroke-width: 0.5; }
+  .teal-text   { fill: #085041; }
+  .teal-sub    { fill: #0F6E56; }
+  .green-fill  { fill: #EAF3DE; stroke: #3B6D11; stroke-width: 0.5; }
+  .green-text  { fill: #27500A; }
+  .green-sub   { fill: #3B6D11; }
+  .coral-fill  { fill: #FAECE7; stroke: #993C1D; stroke-width: 0.5; }
+  .coral-text  { fill: #712B13; }
+  .coral-sub   { fill: #993C1D; }
+  @media (prefers-color-scheme: dark) {
+    .t   { fill: #d3d1c7; }
+    .ts  { fill: #888780; }
+    .th  { fill: #d3d1c7; }
+    .arr      { stroke: #d3d1c7; }
+    .arr-thin { stroke: #888780; }
+    .leader   { stroke: #5f5e5a; }
+    .amber-fill  { fill: #633806; stroke: #FAC775; }
+    .amber-text  { fill: #FAEEDA; }
+    .amber-sub   { fill: #FAC775; }
+    .purple-fill { fill: #3C3489; stroke: #CECBF6; }
+    .purple-text { fill: #EEEDFE; }
+    .purple-sub  { fill: #CECBF6; }
+    .blue-fill   { fill: #0C447C; stroke: #B5D4F4; }
+    .blue-text   { fill: #E6F1FB; }
+    .blue-sub    { fill: #B5D4F4; }
+    .teal-fill   { fill: #085041; stroke: #9FE1CB; }
+    .teal-text   { fill: #E1F5EE; }
+    .teal-sub    { fill: #9FE1CB; }
+    .green-fill  { fill: #27500A; stroke: #C0DD97; }
+    .green-text  { fill: #EAF3DE; }
+    .green-sub   { fill: #C0DD97; }
+    .coral-fill  { fill: #712B13; stroke: #F5C4B3; }
+    .coral-text  { fill: #FAECE7; }
+    .coral-sub   { fill: #F5C4B3; }
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-thin" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<text class="th" x="220" y="30" text-anchor="middle">x (joint stream)</text>
+<text class="ts" x="220" y="48" text-anchor="middle">(N_txt+N_img, D)</text>
+<text class="th" x="540" y="30" text-anchor="middle">temb</text>
+<text class="ts" x="540" y="48" text-anchor="middle">(D,)</text>
+
+<line x1="220" y1="58" x2="220" y2="116" class="arr" marker-end="url(#arrow)"/>
+<line x1="540" y1="58" x2="540" y2="76" class="arr-thin" marker-end="url(#arrow-thin)"/>
+
+<rect class="amber-fill" x="460" y="80" width="160" height="56" rx="8"/>
+<text class="th amber-text" x="540" y="100" text-anchor="middle" dominant-baseline="central">modulation</text>
+<text class="ts amber-sub"  x="540" y="120" text-anchor="middle" dominant-baseline="central">silu → Linear → 3 chunks</text>
+
+<rect class="purple-fill" x="140" y="120" width="160" height="56" rx="8"/>
+<text class="th purple-text" x="220" y="140" text-anchor="middle" dominant-baseline="central">pre_norm + modulate</text>
+<text class="ts purple-sub"  x="220" y="160" text-anchor="middle" dominant-baseline="central">(1+scale)·LN(x) + shift</text>
+
+<path class="leader" d="M 460 130 L 360 130 L 320 148"/>
+<text class="ts" x="395" y="124" text-anchor="middle">shift, scale</text>
+
+<line x1="220" y1="176" x2="220" y2="196" class="arr" marker-end="url(#arrow)"/>
+
+<rect class="coral-fill" x="140" y="200" width="320" height="56" rx="8"/>
+<text class="th coral-text" x="300" y="220" text-anchor="middle" dominant-baseline="central">linear1: D → 7D</text>
+<text class="ts coral-sub"  x="300" y="240" text-anchor="middle" dominant-baseline="central">fused QKV + mlp hidden</text>
+
+<text class="ts" x="300" y="274" text-anchor="middle">split [3D, 4D]</text>
+
+<path class="arr" d="M 220 256 L 220 284" marker-end="url(#arrow)"/>
+<path class="arr" d="M 380 256 L 380 284" marker-end="url(#arrow)"/>
+
+<rect class="blue-fill" x="100" y="288" width="240" height="56" rx="8"/>
+<text class="th blue-text" x="220" y="308" text-anchor="middle" dominant-baseline="central">split QKV + QKNorm</text>
+<text class="ts blue-sub"  x="220" y="328" text-anchor="middle" dominant-baseline="central">(H, N, d_h) ×3</text>
+
+<rect class="green-fill" x="380" y="288" width="200" height="56" rx="8"/>
+<text class="th green-text" x="480" y="308" text-anchor="middle" dominant-baseline="central">mlp_in</text>
+<text class="ts green-sub"  x="480" y="328" text-anchor="middle" dominant-baseline="central">(N, 4D)</text>
+
+<line x1="220" y1="344" x2="220" y2="370" class="arr" marker-end="url(#arrow)"/>
+<line x1="480" y1="344" x2="480" y2="370" class="arr" marker-end="url(#arrow)"/>
+
+<rect class="teal-fill" x="100" y="374" width="240" height="44" rx="8"/>
+<text class="th teal-text" x="220" y="396" text-anchor="middle" dominant-baseline="central">RoPE(Q), RoPE(K)</text>
+
+<rect class="green-fill" x="380" y="374" width="200" height="44" rx="8"/>
+<text class="th green-text" x="480" y="396" text-anchor="middle" dominant-baseline="central">gelu</text>
+
+<line x1="220" y1="418" x2="220" y2="442" class="arr" marker-end="url(#arrow)"/>
+<line x1="480" y1="418" x2="480" y2="442" class="arr" marker-end="url(#arrow)"/>
+
+<rect class="teal-fill" x="100" y="446" width="240" height="56" rx="8"/>
+<text class="th teal-text" x="220" y="466" text-anchor="middle" dominant-baseline="central">scaled dot-prod attn</text>
+<text class="ts teal-sub"  x="220" y="486" text-anchor="middle" dominant-baseline="central">cudnn flash kernel</text>
+
+<rect class="green-fill" x="380" y="446" width="200" height="56" rx="8"/>
+<text class="th green-text" x="480" y="466" text-anchor="middle" dominant-baseline="central">mlp activated</text>
+<text class="ts green-sub"  x="480" y="486" text-anchor="middle" dominant-baseline="central">(N, 4D)</text>
+
+<line x1="220" y1="502" x2="220" y2="526" class="arr" marker-end="url(#arrow)"/>
+
+<rect class="blue-fill" x="100" y="530" width="240" height="44" rx="8"/>
+<text class="th blue-text" x="220" y="552" text-anchor="middle" dominant-baseline="central">merge heads → (N, D)</text>
+
+<path class="arr" d="M 220 574 L 220 596 L 280 596 L 280 614" marker-end="url(#arrow)"/>
+<path class="arr" d="M 480 502 L 480 596 L 320 596 L 320 614" marker-end="url(#arrow)"/>
+
+<rect class="coral-fill" x="180" y="618" width="240" height="56" rx="8"/>
+<text class="th coral-text" x="300" y="638" text-anchor="middle" dominant-baseline="central">concat: [attn, mlp]</text>
+<text class="ts coral-sub"  x="300" y="658" text-anchor="middle" dominant-baseline="central">(N, 5D)</text>
+
+<line x1="300" y1="674" x2="300" y2="694" class="arr" marker-end="url(#arrow)"/>
+
+<rect class="coral-fill" x="180" y="698" width="240" height="56" rx="8"/>
+<text class="th coral-text" x="300" y="718" text-anchor="middle" dominant-baseline="central">linear2: 5D → D</text>
+<text class="ts coral-sub"  x="300" y="738" text-anchor="middle" dominant-baseline="central">project back</text>
+
+<line x1="300" y1="754" x2="300" y2="774" class="arr" marker-end="url(#arrow)"/>
+
+<rect class="amber-fill" x="180" y="778" width="240" height="44" rx="8"/>
+<text class="th amber-text" x="300" y="800" text-anchor="middle" dominant-baseline="central">x + gate · output</text>
+
+<path class="leader" d="M 620 108 L 640 108 L 640 800 L 420 800"/>
+<text class="ts" x="635" y="470" text-anchor="end">gate</text>
+
+<line x1="300" y1="822" x2="300" y2="852" class="arr" marker-end="url(#arrow)"/>
+
+<text class="th" x="300" y="872" text-anchor="middle">x out</text>
+<text class="ts" x="300" y="890" text-anchor="middle">(N_txt+N_img, D)</text>
+</svg>

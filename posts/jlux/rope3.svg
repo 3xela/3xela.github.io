@@ -1,0 +1,321 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 300" role="img" font-family="system-ui, -apple-system, sans-serif">
+<title>Each image patch rotates two independent subspaces (RoPE, honest version)</title>
+<desc>A scene is split into a 4x4 grid of patches. Each patch is split into two halves: the width half rotates by the column index, the height half rotates by the row index. The two halves rotate independently, so a patch at (row 1, col 3) looks different from (row 3, col 1) — they do not collide.</desc>
+<style>
+  .ts { font-size: 12px; font-weight: 400; fill: #5f5e5a; }
+  .pborder { fill: none; stroke: #2c2c2a; stroke-width: 1; opacity: 0.35; }
+  .tint-w { fill: #185FA5; opacity: 0.16; }
+  .tint-h { fill: #0F6E56; opacity: 0.16; }
+  .sw-w { fill: #185FA5; } .sw-h { fill: #0F6E56; }
+  @media (prefers-color-scheme: dark) {
+    .ts { fill: #888780; }
+    .pborder { stroke: #d3d1c7; opacity: 0.45; }
+    .tint-w { fill: #B5D4F4; opacity: 0.20; } .tint-h { fill: #9FE1CB; opacity: 0.20; }
+    .sw-w { fill: #B5D4F4; } .sw-h { fill: #9FE1CB; }
+  }
+  @media (prefers-reduced-motion: reduce) { animateTransform { display: none; } }
+</style>
+<defs>
+  <g id="scene">
+    <rect x="0" y="0" width="160" height="160" fill="#CDE8F6"/>
+    <circle cx="124" cy="40" r="16" fill="#F4C842"/>
+    <rect x="0" y="112" width="160" height="48" fill="#9CC36F"/>
+    <polygon points="6,118 58,52 112,118" fill="#6E9B57"/>
+    <polygon points="74,118 116,72 160,118" fill="#5C8348"/>
+  </g>
+  <clipPath id="cellL"><rect x="0"  y="0" width="20" height="40"/></clipPath>
+  <clipPath id="cellR"><rect x="20" y="0" width="20" height="40"/></clipPath>
+</defs>
+<g transform="translate(260,70)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="260,70;260,70;230,40;230,40;260,70"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;0 10 20;0 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,0)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;0 30 20;0 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,0)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(300,70)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="300,70;300,70;290,40;290,40;300,70"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;18 10 20;18 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,0)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;0 30 20;0 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,0)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(340,70)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="340,70;340,70;350,40;350,40;340,70"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;36 10 20;36 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,0)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;0 30 20;0 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,0)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(380,70)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="380,70;380,70;410,40;410,40;380,70"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;54 10 20;54 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,0)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;0 30 20;0 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,0)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(260,110)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="260,110;260,110;230,100;230,100;260,110"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;0 10 20;0 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,-40)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;18 30 20;18 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,-40)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(300,110)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="300,110;300,110;290,100;290,100;300,110"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;18 10 20;18 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,-40)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;18 30 20;18 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,-40)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(340,110)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="340,110;340,110;350,100;350,100;340,110"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;36 10 20;36 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,-40)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;18 30 20;18 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,-40)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(380,110)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="380,110;380,110;410,100;410,100;380,110"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;54 10 20;54 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,-40)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;18 30 20;18 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,-40)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(260,150)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="260,150;260,150;230,160;230,160;260,150"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;0 10 20;0 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,-80)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;36 30 20;36 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,-80)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(300,150)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="300,150;300,150;290,160;290,160;300,150"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;18 10 20;18 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,-80)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;36 30 20;36 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,-80)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(340,150)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="340,150;340,150;350,160;350,160;340,150"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;36 10 20;36 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,-80)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;36 30 20;36 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,-80)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(380,150)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="380,150;380,150;410,160;410,160;380,150"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;54 10 20;54 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,-80)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;36 30 20;36 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,-80)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(260,190)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="260,190;260,190;230,220;230,220;260,190"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;0 10 20;0 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,-120)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;54 30 20;54 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,-120)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(300,190)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="300,190;300,190;290,220;290,220;300,190"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;18 10 20;18 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,-120)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;54 30 20;54 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,-120)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(340,190)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="340,190;340,190;350,220;350,220;340,190"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;36 10 20;36 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,-120)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;54 30 20;54 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,-120)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<g transform="translate(380,190)">
+  <animateTransform attributeName="transform" type="translate" dur="9s" repeatCount="indefinite"
+    keyTimes="0;0.22;0.42;0.85;1" values="380,190;380,190;410,220;410,220;380,190"/>
+  <g transform="rotate(0 10 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 10 20;0 10 20;54 10 20;54 10 20;0 10 20"/>
+    <g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,-120)"/></g>
+    <rect class="tint-w" x="0" y="0" width="20" height="40"/>
+    <rect class="pborder" x="0" y="0" width="20" height="40"/>
+  </g>
+  <g transform="rotate(0 30 20)">
+    <animateTransform attributeName="transform" type="rotate" dur="9s" repeatCount="indefinite"
+      keyTimes="0;0.42;0.62;0.85;1" values="0 30 20;0 30 20;54 30 20;54 30 20;0 30 20"/>
+    <g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,-120)"/></g>
+    <rect class="tint-h" x="20" y="0" width="20" height="40"/>
+    <rect class="pborder" x="20" y="0" width="20" height="40"/>
+  </g>
+</g>
+<rect class="sw-w" x="196" y="280" width="11" height="11" rx="2"/>
+<text class="ts" x="212" y="290">width half &#8594; rotate by column</text>
+<rect class="sw-h" x="404" y="280" width="11" height="11" rx="2"/>
+<text class="ts" x="420" y="290">height half &#8594; rotate by row</text>
+</svg>
