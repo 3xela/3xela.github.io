@@ -298,6 +298,27 @@ body.blog .wrap {
   background: none;
   padding: 0;
 }
+/* Display equations ($$...$$) get a full-width grey box like code blocks,
+   with a lighter/translucent tint that works on both light and dark themes. */
+.prose .katex-display {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  background: rgba(128, 128, 128, 0.1);
+  border-radius: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+/* Inline math ($...$) gets the same chip treatment as inline `code`... */
+.prose .katex {
+  background: var(--subtle);
+  padding: 0.125rem 0.3rem;
+  border-radius: 3px;
+}
+/* ...but not the .katex that lives inside a display block (avoids a double box). */
+.prose .katex-display .katex {
+  background: none;
+  padding: 0;
+}
 .prose hr {
   border: none;
   border-top: 1px solid var(--subtle);
