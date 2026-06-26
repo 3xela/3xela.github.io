@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap");
+
 * {
   outline: 0;
   padding: 0;
@@ -20,7 +22,7 @@ html {
   overflow-x: hidden;
 }
 body {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   font-optical-sizing: auto;
   font-style: normal;
   overflow-y: scroll;
@@ -96,6 +98,9 @@ body::-webkit-scrollbar {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
+body.blog .wrap {
+  max-width: 880px;
+}
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -151,7 +156,7 @@ body::-webkit-scrollbar {
   width: 100%;
   display: flex;
 }
-#intro {
+.intro {
   row-gap: 0.5rem;
   flex-direction: column;
   display: flex;
@@ -174,7 +179,6 @@ body::-webkit-scrollbar {
   display: flex;
 }
 .list-item {
-  pointer-events: auto;
   column-gap: 0.5rem;
   align-items: center;
   display: flex;
@@ -219,6 +223,7 @@ body::-webkit-scrollbar {
 
 /* Rendered markdown (prose) */
 .prose {
+  font-size: 0.875rem;
   line-height: 1.75;
   word-wrap: break-word;
   min-width: 0;
@@ -238,6 +243,14 @@ body::-webkit-scrollbar {
   font-size: 0.875rem;
   font-weight: 600;
   margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 .prose p {
@@ -268,7 +281,7 @@ body::-webkit-scrollbar {
   margin: 0.75rem 0;
 }
 .prose code {
-  font-family: "Geist Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   background: var(--subtle);
   padding: 0.125rem 0.25rem;
   border-radius: 3px;
@@ -282,6 +295,27 @@ body::-webkit-scrollbar {
   margin: 0.75rem 0;
 }
 .prose pre code {
+  background: none;
+  padding: 0;
+}
+/* Display equations ($$...$$) get a full-width grey box like code blocks,
+   with a lighter/translucent tint that works on both light and dark themes. */
+.prose .katex-display {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  background: rgba(128, 128, 128, 0.1);
+  border-radius: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+/* Inline math ($...$) gets the same chip treatment as inline `code`... */
+.prose .katex {
+  background: var(--subtle);
+  padding: 0.125rem 0.3rem;
+  border-radius: 3px;
+}
+/* ...but not the .katex that lives inside a display block (avoids a double box). */
+.prose .katex-display .katex {
   background: none;
   padding: 0;
 }
@@ -302,4 +336,79 @@ body::-webkit-scrollbar {
 }
 .prose em {
   font-style: italic;
+}
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 4px;
+}
+.prose .repo-badge {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1.5rem auto;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.prose .repo-badge:hover {
+  opacity: 0.85;
+}
+.prose .repo-badge svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.prose .sample-grid {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 38rem;
+  margin: 0.5rem auto 2rem;
+}
+.prose .sample-grid img {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.7rem;
+  display: block;
+  overflow-x: auto;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--subtle);
+  padding: 0.375rem 0.625rem;
+  text-align: left;
+}
+.prose th {
+  font-weight: 600;
+  background: var(--subtle);
+}
+/* Footnote references (citations) */
+.prose .footnotes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--subtle);
+  font-size: 0.8125rem;
+}
+.prose .footnotes ol {
+  color: var(--muted);
+}
+.prose sup a[data-footnote-ref],
+.prose a[data-footnote-backref] {
+  text-decoration: none;
 }

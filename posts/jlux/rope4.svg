@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 35 680 205" role="img" font-family="system-ui, -apple-system, sans-serif">
+<title>RoPE as a hue rotation: image chopped into patches, each split into two halves that colour-shift by position</title>
+<desc>A scene starts whole, is chopped into a 4x4 grid of patches. A line is then drawn down the middle of each patch, dividing it into a left half and a right half (its two position subspaces). The left half hue-rotates by the column index and the right half by the row index. A 2D rotation is a rotation in the colour plane, so rotation is shown as a colour change.</desc>
+<style>
+  .pborder { fill: none; stroke: #2c2c2a; stroke-width: 1; opacity: 0.30; }
+  @media (prefers-color-scheme: dark) { .pborder { stroke: #d3d1c7; opacity: 0.40; } }
+  @media (prefers-reduced-motion: reduce) { animate, animateTransform { display: none; } }
+</style>
+<defs>
+  <g id="scene">
+    <rect x="0" y="0" width="160" height="160" fill="#BFE0EF"/>
+    <polygon points="40,64 26,16 74,46" fill="#8C99A3"/>
+    <polygon points="120,64 134,16 86,46" fill="#8C99A3"/>
+    <polygon points="42,57 32,24 66,45" fill="#E58AA4"/>
+    <polygon points="118,57 128,24 94,45" fill="#E58AA4"/>
+    <circle cx="80" cy="94" r="54" fill="#9CA8B2"/>
+    <ellipse cx="80" cy="112" rx="40" ry="30" fill="#C5CDD4"/>
+    <path d="M80 50 V70 M66 54 V72 M94 54 V72" stroke="#5C666F" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="92" rx="11" ry="13" fill="#4C9A3F"/>
+    <ellipse cx="100" cy="92" rx="11" ry="13" fill="#4C9A3F"/>
+    <ellipse cx="60" cy="92" rx="4" ry="9" fill="#15240F"/>
+    <ellipse cx="100" cy="92" rx="4" ry="9" fill="#15240F"/>
+    <polygon points="74,108 86,108 80,116" fill="#D86A8A"/>
+    <path d="M80 116 Q72 124 64 118 M80 116 Q88 124 96 118" stroke="#444B52" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M56 116 L22 110 M56 121 L22 122 M56 126 L24 134" stroke="#E6EAEC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M104 116 L138 110 M104 121 L138 122 M104 126 L136 134" stroke="#E6EAEC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <clipPath id="cellL"><rect x="0"  y="0" width="20" height="40"/></clipPath>
+  <clipPath id="cellR"><rect x="20" y="0" width="20" height="40"/></clipPath>
+  <filter id="hue1" x="-5%" y="-5%" width="110%" height="110%">
+    <feColorMatrix type="hueRotate" values="0">
+      <animate attributeName="values" dur="10s" repeatCount="indefinite" keyTimes="0;0.50;0.66;0.86;1" values="0;0;35;35;0"/>
+    </feColorMatrix>
+  </filter>
+  <filter id="hue2" x="-5%" y="-5%" width="110%" height="110%">
+    <feColorMatrix type="hueRotate" values="0">
+      <animate attributeName="values" dur="10s" repeatCount="indefinite" keyTimes="0;0.50;0.66;0.86;1" values="0;0;70;70;0"/>
+    </feColorMatrix>
+  </filter>
+  <filter id="hue3" x="-5%" y="-5%" width="110%" height="110%">
+    <feColorMatrix type="hueRotate" values="0">
+      <animate attributeName="values" dur="10s" repeatCount="indefinite" keyTimes="0;0.50;0.66;0.86;1" values="0;0;105;105;0"/>
+    </feColorMatrix>
+  </filter>
+</defs>
+<g transform="translate(260,60)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="260,60;260,60;245,45;245,45;260,60"/>
+  <g><g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,0)"/></g></g>
+  <g><g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,0)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(300,60)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="300,60;300,60;295,45;295,45;300,60"/>
+  <g filter="url(#hue1)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,0)"/></g></g>
+  <g><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,0)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(340,60)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="340,60;340,60;345,45;345,45;340,60"/>
+  <g filter="url(#hue2)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,0)"/></g></g>
+  <g><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,0)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(380,60)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="380,60;380,60;395,45;395,45;380,60"/>
+  <g filter="url(#hue3)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,0)"/></g></g>
+  <g><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,0)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(260,100)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="260,100;260,100;245,95;245,95;260,100"/>
+  <g><g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,-40)"/></g></g>
+  <g filter="url(#hue1)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,-40)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(300,100)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="300,100;300,100;295,95;295,95;300,100"/>
+  <g filter="url(#hue1)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,-40)"/></g></g>
+  <g filter="url(#hue1)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,-40)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(340,100)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="340,100;340,100;345,95;345,95;340,100"/>
+  <g filter="url(#hue2)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,-40)"/></g></g>
+  <g filter="url(#hue1)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,-40)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(380,100)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="380,100;380,100;395,95;395,95;380,100"/>
+  <g filter="url(#hue3)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,-40)"/></g></g>
+  <g filter="url(#hue1)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,-40)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(260,140)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="260,140;260,140;245,145;245,145;260,140"/>
+  <g><g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,-80)"/></g></g>
+  <g filter="url(#hue2)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,-80)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(300,140)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="300,140;300,140;295,145;295,145;300,140"/>
+  <g filter="url(#hue1)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,-80)"/></g></g>
+  <g filter="url(#hue2)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,-80)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(340,140)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="340,140;340,140;345,145;345,145;340,140"/>
+  <g filter="url(#hue2)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,-80)"/></g></g>
+  <g filter="url(#hue2)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,-80)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(380,140)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="380,140;380,140;395,145;395,145;380,140"/>
+  <g filter="url(#hue3)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,-80)"/></g></g>
+  <g filter="url(#hue2)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,-80)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(260,180)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="260,180;260,180;245,195;245,195;260,180"/>
+  <g><g clip-path="url(#cellL)"><use href="#scene" transform="translate(0,-120)"/></g></g>
+  <g filter="url(#hue3)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(0,-120)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(300,180)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="300,180;300,180;295,195;295,195;300,180"/>
+  <g filter="url(#hue1)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-40,-120)"/></g></g>
+  <g filter="url(#hue3)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-40,-120)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(340,180)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="340,180;340,180;345,195;345,195;340,180"/>
+  <g filter="url(#hue2)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-80,-120)"/></g></g>
+  <g filter="url(#hue3)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-80,-120)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+<g transform="translate(380,180)">
+  <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" keyTimes="0;0.14;0.34;0.86;1"
+    values="380,180;380,180;395,195;395,195;380,180"/>
+  <g filter="url(#hue3)"><g clip-path="url(#cellL)"><use href="#scene" transform="translate(-120,-120)"/></g></g>
+  <g filter="url(#hue3)"><g clip-path="url(#cellR)"><use href="#scene" transform="translate(-120,-120)"/></g></g>
+  <rect class="pborder" x="0" y="0" width="40" height="40"/>
+  <line class="pborder" x1="20" y1="0" x2="20" y2="40" opacity="0"><animate attributeName="opacity" dur="10s" repeatCount="indefinite" keyTimes="0;0.34;0.46;0.86;1" values="0;0;1;1;0"/></line>
+</g>
+</svg>

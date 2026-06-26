@@ -1,3 +1,15 @@
+// GoatCounter analytics. The blog routes posts via the URL hash with no full
+// page reload, so configure the path to include the hash and fire a manual
+// count on hashchange — otherwise every post would register as just /blog.html.
+window.goatcounter = {
+  path: () => location.pathname + location.hash,
+};
+window.addEventListener('hashchange', () => {
+  if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+    window.goatcounter.count({ path: location.pathname + location.hash });
+  }
+});
+
 // Check for saved theme preference, otherwise use system preference
 const getPreferredTheme = () => {
   const savedTheme = localStorage.getItem('theme');

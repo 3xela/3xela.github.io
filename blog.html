@@ -7,22 +7,18 @@
     <meta name="description" content="blog posts" />
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-footnote/dist/index.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+    <script data-goatcounter="https://3xela.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
   </head>
-  <body>
-    <header class="wrap" style="pointer-events: auto">
-      <div class="py-10 header-content" style="pointer-events: auto">
+  <body class="blog">
+    <header class="wrap">
+      <div class="py-10 header-content">
         <nav class="nav">
-          <a class="link" href="/" style="pointer-events: auto"
-            ><span style="pointer-events: auto">neagoe</span
+          <a class="link" href="/"><span>neagoe</span
             ><span class="text-muted">.</span><span>xyz</span></a
           >
           <a class="link nav-link active" href="/blog.html">blog</a>
@@ -32,12 +28,11 @@
         </button>
       </div>
     </header>
-    <main class="wrap" style="pointer-events: auto">
+    <main class="wrap">
       <div id="blog-content"></div>
-      <footer class="wrap" style="pointer-events: auto">
-        <div class="py-10" style="pointer-events: auto">
-          <a style="pointer-events: auto"
-            ><span class="text-muted">Last updated</span
+      <footer class="wrap">
+        <div class="py-10">
+          <a><span class="text-muted">Last updated</span
             ><span class="text-muted">: </span
             ><span class="text-muted">01 Feb 2025</span></a
           >
@@ -46,12 +41,13 @@
     </main>
     <script>
       const blogContent = document.getElementById('blog-content');
+      marked.use(markedFootnote({ description: 'References', headingClass: '' }));
 
       async function loadPostList() {
         const res = await fetch('posts.json', { cache: 'no-store' });
         const posts = await res.json();
         let html = '<div class="main-container">';
-        html += '<div id="intro"><p class="font-medium text-muted">Posts</p>';
+        html += '<div class="intro"><p class="font-medium text-muted">Posts</p>';
         html += '<div class="body-text post-list">';
         posts.forEach(post => {
           html += `<a class="post-item link" href="#${post.slug}">`;
@@ -98,6 +94,11 @@
 
       function route() {
         const slug = location.hash.slice(1);
+        // In-page anchors (e.g. footnote citations/backrefs) resolve to an
+        // element already on the page — let the browser scroll, don't re-route.
+        if (slug && document.getElementById(slug)) {
+          return;
+        }
         if (slug) {
           loadPost(slug);
         } else {

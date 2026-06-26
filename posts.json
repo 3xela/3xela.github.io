@@ -10,5 +10,11 @@
     "title": "Hello, World!",
     "date": "2025-02-11",
     "description": "A first post to kick things off."
+  },
+  {
+    "slug": "jlux",
+    "title": "Flux.1 In Jax Equiniox",
+    "date": "2025-02-11",
+    "description": "jlux"
   }
 ]
